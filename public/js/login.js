@@ -14,15 +14,11 @@ const loginFormHandler = async (event) => {
     if (response.ok) {
       const responseData = await response.json();
       console.log('Response:', responseData.message);
+      document.location.replace('/');
     } else {
       console.log('Failed to log in:', response.statusText);
     }
 
-    // if (response.ok) {
-    //   document.location.replace('/');
-    // } else {
-    //   alert('Failed to log in.');
-    // }
   }
 };
 

@@ -16,7 +16,7 @@
         <li><a href="/">Home</a></li> 
         <li><a href="/">Dashboard</a></li>
         
-        {{#if logged_in}}
+        {{#if loggedIn}}
         <li><button class="btn" id="logout">Logout</button></li>
         {{else}}
         <li><a href="#" id="login" class="btn">Login</a></li>
@@ -33,11 +33,11 @@
 </body>
 <script>
     // Assuming logged_in is passed to the template and available in a global variable
-    const loggedIn = {{#if logged_in}}true{{else}}false{{/if}};
+    const loggedIn = {{#if loggedIn}}true{{else}}false{{/if}};
     console.log('Logged in status:', loggedIn);
   </script>
   
- {{#if logged_in}}
+ {{#if loggedIn}}
 <script src="/js/logout.js"></script>
 {{else}}
 <script src="/js/goToLogin.js"></script>

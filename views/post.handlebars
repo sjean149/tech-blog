@@ -1,0 +1,9 @@
+{{#with post}}
+{{> post-details }}
+{{/with}}
+
+<br />
+{{#each post.comments}}
+{{> comment}}
+{{/each}}
+

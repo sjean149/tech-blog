@@ -17,11 +17,13 @@ router.get("/", async (req, res) => {
 
     console.log('Session:', req.session);
     console.log('Logged in status:', req.session.loggedIn);
-    res.send('Logged in status:', req.session.loggedIn);
-    // res.render("homepage", {
-    //   posts,
-    //   loggedIn: req.session.loggedIn,
-    // });
+    //res.send('Logged in status:', req.session.loggedIn);
+
+    res.render("homepage", {
+      posts,
+      loggedIn: req.session.loggedIn,
+    });
+
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -31,34 +33,30 @@ router.get("/", async (req, res) => {
 
 // GET one post
 router.get("/post/:id", async (req, res) => {
+ 
   // If the user is not logged in, redirect the user to the login page
   if (!req.session.loggedIn) {
     res.redirect("/login");
   } else {
     // If the user is logged in, allow them to view the gallery
     try {
-      const dbGalleryData = await Gallery.findByPk(req.params.id, {
+      const postData = await Post.findByPk(req.params.id, {
         include: [
           {
-            model: Painting,
-            attributes: [
-              "id",
-              "title",
-              "artist",
-              "exhibition_date",
-              "filename",
-              "description",
-            ],
+            model: Comment,
           },
         ],
       });
-      const gallery = dbGalleryData.get({ plain: true });
-      res.render("gallery", { gallery, loggedIn: req.session.loggedIn });
+
+      const post = postData.get({ plain: true });
+      console.log(post);
+      res.render("post", { post, loggedIn: req.session.loggedIn });
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
     }
   }
+  
 });
 
 // GET one painting
@@ -80,6 +78,7 @@ router.get("/painting/:id", async (req, res) => {
     }
   }
 });
+
 
 router.get("/login", (req, res) => {
   
