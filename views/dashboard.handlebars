@@ -1,0 +1,30 @@
+<h2>Welcome {{username}}</h2>
+{{#each posts as |post|}}
+
+
+<a href="/post/{{id}}">
+{{> post-details}}
+</a>
+
+{{/each}}
+
+ <div class="login-card">
+    <h2 class="page-title">Create New Post</h2>
+    <form class="form create-post">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input class="form-input" type="text" id="title" />
+      </div>
+      <div class="form-group">
+        <label for="contents">contents:</label>
+        <input class="form-input" type="text" id="contents" />
+      </div>
+    
+      <div class="form-group">
+        <button class="btn btn-primary" type="submit">Create Post</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="./js/dashboard.js"></script>

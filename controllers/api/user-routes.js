@@ -1,9 +1,11 @@
 const router = require('express').Router();
-const { User } = require('../../models');
+const { User, Post, Comment } = require('../../models');
 
 // CREATE new user
 router.post('/', async (req, res) => {
   try {
+    console.log(`Server: Username: ${req.body.username}, Email: ${req.body.email}, Password: ${req.body.password}`);
+
     const dbUserData = await User.create({
       username: req.body.username,
       email: req.body.email,
@@ -12,7 +14,8 @@ router.post('/', async (req, res) => {
 
     req.session.save(() => {
       req.session.loggedIn = true;
-
+      req.session.userId = dbUserData.id
+      req.session.username = dbUserData.username
       res.status(200).json(dbUserData);
     });
   } catch (err) {
@@ -49,6 +52,8 @@ router.post('/login', async (req, res) => {
     
     req.session.save(() => {
       req.session.loggedIn = true;
+      req.session.userId = dbUserData.id
+      req.session.username = dbUserData.username
       
       res
         .status(200)
@@ -71,5 +76,19 @@ router.post('/logout', (req, res) => {
     res.status(404).end();
   }
 });
+
+router.post('/createPost', async (req, res) => {
+  if (req.session.loggedIn) {
+    const dbPostData = await Post.create({
+      title: req.body.title,
+      contents: req.body.contents,
+      user_id: req.session.userId
+    })
+    console.log("POST",dbPostData)
+    res.json(dbPostData);
+  } else {
+    res.redirect('/login');
+  }
+})
 
 module.exports = router;

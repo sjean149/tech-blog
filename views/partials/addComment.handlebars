@@ -1,0 +1,6 @@
+<!-- views/partials/addComment.handlebars -->
+<form id="comment-form" class="comment-form" action="/api/comments" method="POST">
+    <textarea name="commentText" id="commentText" rows="4" placeholder="Add a comment..." required></textarea>
+    <input type="hidden" name="postId" value="{{postId}}" >
+    <button type="submit" class="btn">Submit</button>
+</form>
