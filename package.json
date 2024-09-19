@@ -4,8 +4,7 @@
     "description": "This web-app provides a tech-blog for developers to write in",
     "main": "server.js",
     "scripts": {
-      "start": "node server.js",
-      "install": "npm i && cd seeds && node index.js"
+      "start": "node seeds/index.js && node server.js"
     },
   "dependencies": {
     "bcrypt": "^5.1.1",
